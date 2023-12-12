@@ -3,6 +3,7 @@ package baseball.model;
 import baseball.utils.Convert;
 import baseball.utils.validation.UserNumberValidator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class UserNumber {
 
@@ -22,5 +23,12 @@ public class UserNumber {
             }
         }
         return strike;
+    }
+
+    public int countBall(List<Integer> computerNumber) {
+        return (int) IntStream.range(0, 3)
+                .flatMap(i -> IntStream.range(0, 3)
+                        .filter(j -> i != j && userNumber.get(i).equals(computerNumber.get(j))))
+                .count();
     }
 }
