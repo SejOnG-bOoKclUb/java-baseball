@@ -7,23 +7,22 @@ import java.util.List;
 
 public class GameController {
 
-    private final UserNumber userNumber;
-    private List<Integer> computerNumber;
-
-    public GameController() {
-        this.userNumber = InputController.makeUserNumbers();
-        this.computerNumber = new ComputerNumber().makeComputerNumber();
-    }
-
     public void startGame() {
-        int countStrike = userNumber.countStrike(computerNumber);
-        int countBall = userNumber.countBall(computerNumber);
-        if (countBall != 0 || countStrike != 0) {
-            OutputView.printStrikeAndBall(countStrike, countBall);
-        }
-        if (countBall == 0 && countStrike == 0) {
-            OutputView.printNothing();
-        }
+        do {
+            List<Integer> computerNumber = new ComputerNumber().makeComputerNumber();
+            doOneGame(computerNumber);
+        } while (InputController.isRestart());
     }
 
+    private void doOneGame(List<Integer> computerNumber) {
+        while (true) {
+            UserNumber userNumber = InputController.makeUserNumbers();
+            int countStrike = userNumber.countStrike(computerNumber);
+            int countBall = userNumber.countBall(computerNumber);
+            OutputView.printStrikeAndBall(countStrike, countBall);
+            if (countStrike == 3) {
+                break;
+            }
+        }
+    }
 }
