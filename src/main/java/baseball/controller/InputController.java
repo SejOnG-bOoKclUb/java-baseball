@@ -2,11 +2,10 @@ package baseball.controller;
 
 import baseball.model.UserNumber;
 import baseball.view.InputView;
-import java.util.List;
 
 public class InputController {
 
-    public UserNumber makeUserNumbers(){
+    public static UserNumber makeUserNumbers() {
         String inputNumber = InputView.inputNumber();
         UserNumber userNumber = new UserNumber(inputNumber);
 
