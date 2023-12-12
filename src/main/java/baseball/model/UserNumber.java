@@ -13,4 +13,14 @@ public class UserNumber {
         List<Integer> userNumber = Convert.convertStringToList(inputNumbers);
         this.userNumber = userNumber;
     }
+
+    public int countStrike(List<Integer> computerNumber) {
+        int strike = 0;
+        for (int i = 0; i < 3; i++) {
+            if (userNumber.get(i) == computerNumber.get(i)) {
+                strike++;
+            }
+        }
+        return strike;
+    }
 }
