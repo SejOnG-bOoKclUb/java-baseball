@@ -2,6 +2,7 @@ package baseball.controller;
 
 import baseball.model.ComputerNumber;
 import baseball.model.UserNumber;
+import baseball.view.OutputView;
 import java.util.List;
 
 public class GameController {
@@ -17,6 +18,12 @@ public class GameController {
     public void startGame() {
         int countStrike = userNumber.countStrike(computerNumber);
         int countBall = userNumber.countBall(computerNumber);
+        if (countBall != 0 || countStrike != 0) {
+            OutputView.printStrikeAndBall(countStrike, countBall);
+        }
+        if (countBall == 0 && countStrike == 0) {
+            OutputView.printNothing();
+        }
     }
 
 }
