@@ -12,4 +12,11 @@ public class InputController {
         return userNumber;
     }
 
+    public static boolean isRestart() {
+        String restart = InputView.inputRestart();
+        if (restart.equals("1")) {
+            return true;
+        }
+        return false;
+    }
 }
