@@ -22,6 +22,14 @@ public class BullsAndCowsController {
 
     public void run() {
         outputView.printStartMessage();
+        int restart;
+        do {
+            playGame();
+            restart = inputView.scanRestartOrEnd();
+        } while (restart == 1);
+    }
+
+    private void playGame() {
         Computer computer = createComputer();
         ComparisonResult result = null;
         do {
