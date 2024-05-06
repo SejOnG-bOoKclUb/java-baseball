@@ -1,9 +1,8 @@
 package baseball.controller;
 
-import static baseball.domain.InputNumberGenerator.generate;
-
 import baseball.domain.ComparisonResult;
 import baseball.domain.Computer;
+import baseball.domain.InputNumberGenerator;
 import baseball.domain.RandomNumberGenerator;
 import baseball.view.InputView;
 import baseball.view.OutputView;
@@ -25,23 +24,27 @@ public class BullsAndCowsController {
         int restart;
         do {
             playGame();
+            outputView.printRestartMessage();
             restart = inputView.scanRestartOrEnd();
         } while (restart == 1);
     }
 
     private void playGame() {
-        Computer computer = createComputer();
-        ComparisonResult result = null;
+        Computer computer = initComputer();
+        ComparisonResult result;
         do {
             outputView.printNumberRequestMessage();
-            List<Integer> input = generate(inputView.scanThreeDigit());
-            result = computer.compare(input);
+            result = computer.compare(scanInputNumber());
             outputView.printResult(result);
         } while (!result.isThreeStrike());
         outputView.printEndGameMessage();
     }
 
-    private Computer createComputer() {
+    private Computer initComputer() {
         return new Computer(RandomNumberGenerator.generate());
+    }
+
+    private List<Integer> scanInputNumber() {
+        return InputNumberGenerator.generate(inputView.scanThreeDigit());
     }
 }

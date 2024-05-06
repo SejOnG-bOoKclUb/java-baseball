@@ -1,32 +1,35 @@
 package baseball.view;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class InputView {
 
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
+    private final String threeDigitPattern = "^\\d{3}$";
+    private final String oneOrTwoPattern = "^(1|2)$";
 
     public String scanThreeDigit() {
         String input = scanner.next();
-        if (isNotThreeDigitNumber(input)) {
-            throw new NumberFormatException("3자리 숫자만 입력되어야 합니다.");
-        }
+        isNotThreeDigitNumber(input);
         return input;
     }
 
     public int scanRestartOrEnd() {
         String input = scanner.next();
-        if (isNotOneOrTwo(input)) {
-            throw new NumberFormatException("1이나 2만 입력되어야 합니다.");
-        }
+        isNotOneOrTwo(input);
         return Integer.parseInt(input);
     }
 
-    private boolean isNotThreeDigitNumber(String input) {
-        return input.matches("\\D|\\d{1,2}|\\d{4,}");
+    private void isNotThreeDigitNumber(String input) {
+        if (!Pattern.matches(threeDigitPattern, input)) {
+            throw new NumberFormatException("3자리 숫자만 입력되어야 합니다.");
+        }
     }
 
-    private boolean isNotOneOrTwo(String input) {
-        return input.matches("[^12]");
+    private void isNotOneOrTwo(String input) {
+        if (!Pattern.matches(oneOrTwoPattern, input)) {
+            throw new NumberFormatException("1이나 2만 입력되어야 합니다.");
+        }
     }
 }
